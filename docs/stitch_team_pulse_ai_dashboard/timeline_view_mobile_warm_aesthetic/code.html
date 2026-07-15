@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Team Pulse AI - History</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "secondary-fixed": "#f1dfd1",
+                "outline-variant": "#bfc8c8",
+                "on-surface": "#1e1b19",
+                "on-secondary-fixed-variant": "#50453a",
+                "on-tertiary-fixed-variant": "#6b3a23",
+                "surface-container-highest": "#e8e1dd",
+                "on-secondary-fixed": "#231a11",
+                "on-primary": "#ffffff",
+                "primary-fixed": "#afeeed",
+                "on-primary-fixed": "#002020",
+                "on-error": "#ffffff",
+                "on-primary-fixed-variant": "#004f50",
+                "surface-tint": "#276868",
+                "surface-dim": "#dfd9d5",
+                "secondary-fixed-dim": "#d4c4b6",
+                "on-error-container": "#93000a",
+                "tertiary-container": "#a1664c",
+                "surface-container-high": "#eee7e3",
+                "surface-container-low": "#f9f2ee",
+                "primary-container": "#407e7e",
+                "secondary-container": "#f1dfd1",
+                "on-tertiary-container": "#fffbff",
+                "on-primary-container": "#f3fffe",
+                "secondary": "#695c51",
+                "on-background": "#1e1b19",
+                "on-secondary-container": "#6f6257",
+                "primary-fixed-dim": "#93d2d1",
+                "tertiary-fixed": "#ffdbcd",
+                "surface": "#fff8f4",
+                "surface-bright": "#fff8f4",
+                "on-tertiary": "#ffffff",
+                "tertiary-fixed-dim": "#feb697",
+                "on-secondary": "#ffffff",
+                "surface-variant": "#e8e1dd",
+                "tertiary": "#844e36",
+                "error": "#ba1a1a",
+                "inverse-primary": "#93d2d1",
+                "primary": "#246565",
+                "background": "#fff8f4",
+                "outline": "#6f7978",
+                "surface-container": "#f4ede8",
+                "inverse-on-surface": "#f6efeb",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#351001",
+                "inverse-surface": "#33302d",
+                "surface-container-lowest": "#ffffff",
+                "on-surface-variant": "#3f4848"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-padding-desktop": "40px",
+                "base": "8px",
+                "gutter": "24px",
+                "stack-lg": "48px",
+                "stack-md": "24px",
+                "container-padding-mobile": "20px",
+                "stack-sm": "12px",
+                "sm": "12px",
+                "xs": "8px",
+                "md": "24px"
+        },
+        "fontFamily": {
+                "caption": [
+                        "Inter"
+                ],
+                "display": [
+                        "Inter"
+                ],
+                "label-md": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "caption": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "display": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "26px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "500"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body {
+            background-color: theme('colors.background');
+            color: theme('colors.on-background');
+        }
+        
+        /* Glassmorphism utilities */
+        .glass-panel {
+            background-color: theme('colors.surface-container');
+            border: 1px solid theme('colors.outline-variant');
+        }
+        
+        .glass-panel-elevated {
+            background-color: theme('colors.surface-container-high');
+            border: 1px solid theme('colors.outline-variant');
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        }
+
+        /* Custom Range Slider */
+        input[type=range] {
+            -webkit-appearance: none; 
+            width: 100%; 
+            background: transparent; 
+        }
+
+        input[type=range]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            height: 20px;
+            width: 20px;
+            border-radius: 50%;
+            background: theme('colors.primary');
+            cursor: pointer;
+            margin-top: -8px; 
+            box-shadow: 0 0 10px theme('colors.primary-container');
+        }
+
+        input[type=range]::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 4px;
+            cursor: pointer;
+            background: theme('colors.surface-container-highest');
+            border-radius: 2px;
+        }
+
+        input[type=range]:focus {
+            outline: none; 
+        }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="antialiased min-h-screen flex flex-col font-body-md text-body-md pb-24">
+<!-- Top Navigation Bar -->
+<nav class="fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface-container/50 backdrop-blur-md border-b border-outline-variant/50">
+<div class="font-headline-md text-headline-md font-bold text-primary">
+            Team Pulse AI
+        </div>
+<div class="flex space-x-4 items-center">
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="text-on-surface-variant hover:text-primary transition-colors duration-200">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</nav>
+<!-- Main Content Canvas (Mobile Optimized) -->
+<main class="flex-grow pt-24 px-container-padding-mobile flex flex-col gap-stack-md">
+<!-- Header Section -->
+<header class="mb-sm">
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile text-on-surface mb-xs">Timeline Analysis</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Review historical team engagement and connectivity patterns.</p>
+</header>
+<!-- Timeline Scrubber Card -->
+<section class="glass-panel rounded-xl p-container-padding-mobile flex flex-col gap-stack-sm">
+<div class="flex justify-between items-center">
+<span class="font-label-md text-label-md text-outline">Q1 2024</span>
+<span class="font-label-md text-label-md font-bold text-primary" id="current-date-label">March 15, 2024</span>
+<span class="font-label-md text-label-md text-outline">Q2 2024</span>
+</div>
+<div class="relative w-full py-sm">
+<!-- Sparkline Graphic Behind Slider -->
+<div class="absolute inset-0 top-1/2 -translate-y-1/2 w-full h-8 opacity-20 pointer-events-none flex items-end justify-between px-2">
+<div class="w-1 h-3 bg-primary rounded-t"></div>
+<div class="w-1 h-5 bg-primary rounded-t"></div>
+<div class="w-1 h-2 bg-primary rounded-t"></div>
+<div class="w-1 h-6 bg-primary rounded-t"></div>
+<div class="w-1 h-8 bg-primary rounded-t"></div>
+<div class="w-1 h-4 bg-primary rounded-t"></div>
+<div class="w-1 h-7 bg-primary rounded-t"></div>
+<div class="w-1 h-5 bg-primary rounded-t"></div>
+</div>
+<input class="w-full relative z-10" id="timeline-slider" max="100" min="1" type="range" value="75"/>
+</div>
+</section>
+<!-- Dynamic Score Overview Card -->
+<section class="glass-panel rounded-xl p-container-padding-mobile grid grid-cols-2 gap-stack-sm">
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant mb-base flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="bolt">bolt</span> Engagement
+                </span>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-display text-primary">84</span>
+<span class="font-caption text-caption text-primary bg-primary-container/20 px-2 py-0.5 rounded-full flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-1" data-icon="trending_up">trending_up</span> +5%
+                    </span>
+</div>
+</div>
+<div class="flex flex-col">
+<span class="font-label-md text-label-md text-on-surface-variant mb-base flex items-center gap-1">
+<span class="material-symbols-outlined text-[16px]" data-icon="hub">hub</span> Collaboration
+                </span>
+<div class="flex items-baseline gap-2">
+<span class="font-display text-display text-tertiary">92</span>
+<span class="font-caption text-caption text-outline bg-surface-container-highest px-2 py-0.5 rounded-full flex items-center">
+<span class="material-symbols-outlined text-[12px] mr-1" data-icon="horizontal_rule">horizontal_rule</span> 0%
+                    </span>
+</div>
+</div>
+</section>
+<!-- Network Graph Visualizer (Placeholder for Mobile) -->
+<section class="glass-panel rounded-xl p-container-padding-mobile flex flex-col min-h-[300px] relative overflow-hidden">
+<div class="flex justify-between items-start z-10 mb-md">
+<h3 class="font-label-md text-label-md text-on-surface">Team Connectivity</h3>
+<span class="font-caption text-caption bg-primary-container/20 text-primary px-2 py-1 rounded-full border border-primary/20">High Cohesion</span>
+</div>
+<!-- Abstract Graphic Representation -->
+<div class="absolute inset-0 flex items-center justify-center opacity-80 mt-8">
+<!-- Center Node -->
+<div class="w-16 h-16 rounded-full bg-primary-container/20 border-2 border-primary/50 flex items-center justify-center absolute z-20 shadow-[0_0_30px_rgba(36,101,101,0.2)]">
+<span class="material-symbols-outlined text-primary text-[32px]" data-icon="group">group</span>
+</div>
+<!-- Satellite Nodes & Connecting Lines (Simplified for mobile) -->
+<!-- Line 1 -->
+<div class="absolute w-[100px] h-0.5 bg-secondary/30 transform -rotate-45 translate-x-[-30px] translate-y-[-30px]"></div>
+<div class="absolute w-8 h-8 rounded-full bg-secondary/20 border border-secondary/50 flex items-center justify-center transform translate-x-[-70px] translate-y-[-70px]"></div>
+<!-- Line 2 -->
+<div class="absolute w-[80px] h-0.5 bg-tertiary/30 transform rotate-15 translate-x-[40px] translate-y-[-10px]"></div>
+<div class="absolute w-6 h-6 rounded-full bg-tertiary/20 border border-tertiary/50 flex items-center justify-center transform translate-x-[80px] translate-y-[-20px]"></div>
+<!-- Line 3 -->
+<div class="absolute w-[120px] h-0.5 bg-primary/30 transform rotate-120 translate-x-[0px] translate-y-[50px]"></div>
+<div class="absolute w-10 h-10 rounded-full bg-primary/20 border border-primary/50 flex items-center justify-center transform translate-x-[-10px] translate-y-[90px]"></div>
+</div>
+<div class="mt-auto z-10 flex justify-center w-full">
+<button class="bg-surface-container-high hover:bg-surface-container-highest text-on-surface font-label-md text-label-md py-2 px-4 rounded-lg border border-outline-variant transition-colors flex items-center gap-2">
+<span class="material-symbols-outlined text-[18px]" data-icon="zoom_in">zoom_in</span> Explore Graph
+                </button>
+</div>
+</section>
+<!-- Key Events List -->
+<section class="glass-panel rounded-xl p-container-padding-mobile flex flex-col gap-stack-sm">
+<h3 class="font-label-md text-label-md text-on-surface border-b border-outline-variant pb-sm mb-xs">Key Events in Range</h3>
+<!-- Ghost List Rows -->
+<div class="flex flex-col">
+<div class="py-sm flex items-start gap-stack-sm border-b border-outline-variant/50">
+<div class="w-8 h-8 rounded-full bg-primary-container/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-primary text-[16px]" data-icon="rocket_launch">rocket_launch</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Project Alpha Launch</div>
+<div class="font-caption text-caption text-outline mt-base">March 12 • Catalyst for engagement spike</div>
+</div>
+</div>
+<div class="py-sm flex items-start gap-stack-sm border-b border-outline-variant/50">
+<div class="w-8 h-8 rounded-full bg-tertiary/10 flex items-center justify-center flex-shrink-0 mt-0.5">
+<span class="material-symbols-outlined text-tertiary text-[16px]" data-icon="group_add">group_add</span>
+</div>
+<div>
+<div class="font-label-md text-label-md text-on-surface">Team Restructure</div>
+<div class="font-caption text-caption text-outline mt-base">Feb 28 • Temporary cohesion drop</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Bottom Navigation Bar (Mobile Replacement for SideNav) -->
+<!-- Assuming Dashboard intent based on context -->
+<nav class="fixed bottom-0 left-0 w-full z-50 flex justify-around items-center h-16 bg-surface-container-lowest border-t border-outline-variant md:hidden">
+<!-- Active Tab: Insight/Dashboard Equivalent -->
+<a class="flex flex-col items-center justify-center w-full h-full text-primary font-semibold bg-primary-container/10" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" data-icon="dashboard" data-weight="fill">dashboard</span>
+<span class="font-caption text-caption">Overview</span>
+</a>
+<!-- Inactive Tabs -->
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" data-icon="bolt">bolt</span>
+<span class="font-caption text-caption">Engagement</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" data-icon="hub">hub</span>
+<span class="font-caption text-caption">Collab</span>
+</a>
+<a class="flex flex-col items-center justify-center w-full h-full text-on-surface-variant hover:text-on-surface transition-colors duration-200" href="#">
+<span class="material-symbols-outlined mb-1 text-[24px]" data-icon="psychology">psychology</span>
+<span class="font-caption text-caption">AI Suggest</span>
+</a>
+</nav>
+<script>
+        // Simple slider interaction demo
+        const slider = document.getElementById('timeline-slider');
+        const dateLabel = document.getElementById('current-date-label');
+        
+        // Mock dates
+        const dates = [
+            "Jan 15, 2024", "Feb 01, 2024", "Feb 14, 2024", 
+            "Feb 28, 2024", "Mar 12, 2024", "Mar 15, 2024", 
+            "Mar 30, 2024"
+        ];
+
+        if(slider && dateLabel) {
+            slider.addEventListener('input', (e) => {
+                const val = e.target.value;
+                const index = Math.floor((val / 100) * (dates.length - 1));
+                dateLabel.textContent = dates[index];
+                
+                // Add a subtle scale effect on drag
+                dateLabel.style.transform = 'scale(1.05)';
+                setTimeout(() => {
+                    dateLabel.style.transform = 'scale(1)';
+                }, 100);
+            });
+        }
+    </script>
+</body></html>

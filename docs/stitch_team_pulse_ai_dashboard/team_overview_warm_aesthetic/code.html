@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+
+<html class="light" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Team Pulse AI - Overview Dashboard</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "secondary-fixed": "#f1dfd1",
+                "outline-variant": "#bfc8c8",
+                "on-surface": "#1e1b19",
+                "on-secondary-fixed-variant": "#50453a",
+                "on-tertiary-fixed-variant": "#6b3a23",
+                "surface-container-highest": "#e8e1dd",
+                "on-secondary-fixed": "#231a11",
+                "on-primary": "#ffffff",
+                "primary-fixed": "#afeeed",
+                "on-primary-fixed": "#002020",
+                "on-error": "#ffffff",
+                "on-primary-fixed-variant": "#004f50",
+                "surface-tint": "#276868",
+                "surface-dim": "#dfd9d5",
+                "secondary-fixed-dim": "#d4c4b6",
+                "on-error-container": "#93000a",
+                "tertiary-container": "#a1664c",
+                "surface-container-high": "#eee7e3",
+                "surface-container-low": "#f9f2ee",
+                "primary-container": "#407e7e",
+                "secondary-container": "#f1dfd1",
+                "on-tertiary-container": "#fffbff",
+                "on-primary-container": "#f3fffe",
+                "secondary": "#695c51",
+                "on-background": "#1e1b19",
+                "on-secondary-container": "#6f6257",
+                "primary-fixed-dim": "#93d2d1",
+                "tertiary-fixed": "#ffdbcd",
+                "surface": "#fff8f4",
+                "surface-bright": "#fff8f4",
+                "on-tertiary": "#ffffff",
+                "tertiary-fixed-dim": "#feb697",
+                "on-secondary": "#ffffff",
+                "surface-variant": "#e8e1dd",
+                "tertiary": "#844e36",
+                "error": "#ba1a1a",
+                "inverse-primary": "#93d2d1",
+                "primary": "#246565",
+                "background": "#fff8f4",
+                "outline": "#6f7978",
+                "surface-container": "#f4ede8",
+                "inverse-on-surface": "#f6efeb",
+                "error-container": "#ffdad6",
+                "on-tertiary-fixed": "#351001",
+                "inverse-surface": "#33302d",
+                "surface-container-lowest": "#ffffff",
+                "on-surface-variant": "#3f4848"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "2xl": "1.5rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "container-padding-desktop": "40px",
+                "base": "8px",
+                "gutter": "24px",
+                "stack-lg": "48px",
+                "stack-md": "24px",
+                "container-padding-mobile": "20px",
+                "stack-sm": "12px",
+                "md": "24px",
+                "xl": "64px",
+                "lg": "40px",
+                "sm": "16px",
+                "xs": "8px"
+        },
+        "fontFamily": {
+                "caption": [
+                        "Inter"
+                ],
+                "display": [
+                        "Inter"
+                ],
+                "label-md": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "headline-md": [
+                        "Inter"
+                ],
+                "headline-lg": [
+                        "Inter"
+                ],
+                "headline-lg-mobile": [
+                        "Inter"
+                ],
+                "display-score-mobile": [
+                        "Inter"
+                ],
+                "display-score": [
+                        "Inter"
+                ],
+                "label-sm": [
+                        "Inter"
+                ]
+        },
+        "fontSize": {
+                "caption": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "display": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "letterSpacing": "0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "26px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "display-score-mobile": [
+                        "36px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "display-score": [
+                        "48px",
+                        {
+                                "lineHeight": "1.1",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "label-sm": [
+                        "12px",
+                        {
+                                "lineHeight": "16px",
+                                "letterSpacing": "0.02em",
+                                "fontWeight": "500"
+                        }
+                ]
+        }
+},
+    },
+  }
+</script>
+<style>
+        body { background-color: #fff8f4; }
+        .glass-card {
+            background: #ffffff;
+            border: 1px solid #e8e1dd;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+        }
+        .glow-hover:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            border-color: #bfc8c8;
+        }
+        .network-line-strong { stroke: #246565; stroke-width: 2; opacity: 0.6; }
+        .network-line-medium { stroke: #695c51; stroke-width: 1.5; opacity: 0.5; }
+        .network-line-weak { stroke: #844e36; stroke-width: 1; stroke-dasharray: 4; opacity: 0.4; }
+        
+        .pulse-ring {
+            animation: pulse-ring-anim 3s cubic-bezier(0.215, 0.61, 0.355, 1) infinite;
+        }
+        @keyframes pulse-ring-anim {
+            0% { transform: scale(0.95); opacity: 0.7; }
+            50% { transform: scale(1.05); opacity: 0.3; }
+            100% { transform: scale(0.95); opacity: 0.7; }
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen font-body-md antialiased overflow-x-hidden pt-16 pb-24 selection:bg-primary-container selection:text-on-primary-container">
+<!-- TopNavBar -->
+<nav class="bg-background text-primary font-body-md fixed top-0 left-0 w-full z-50 flex justify-between items-center px-gutter h-16 bg-surface-container/50 backdrop-blur-md border-b border-outline-variant/50">
+<div class="flex items-center gap-md">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-2xl" data-icon="monitor_heart">monitor_heart</span>
+<span class="font-headline-md text-headline-md font-bold text-primary">Team Pulse AI</span>
+</div>
+<div class="hidden md:flex gap-sm ml-lg">
+<a class="text-primary font-bold border-b-2 border-primary pb-1" href="#">Dashboard</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Insights</a>
+<a class="text-on-surface-variant font-medium hover:text-primary transition-colors duration-200" href="#">Settings</a>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined" data-icon="notifications">notifications</span>
+</button>
+<button class="p-2 text-on-surface-variant hover:text-primary transition-colors rounded-full hover:bg-surface-variant">
+<span class="material-symbols-outlined" data-icon="account_circle">account_circle</span>
+</button>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="max-w-[1280px] mx-auto px-gutter pt-xl flex flex-col gap-lg">
+<!-- Top Bento Row -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-md">
+<!-- Hero Health Score (Left, 4 cols) -->
+<div class="md:col-span-4 glass-card rounded-2xl p-md flex flex-col justify-between glow-hover transition-all duration-300">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface mb-2">Team Health</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Overall wellness &amp; connectivity</p>
+</div>
+<div class="flex flex-col items-center justify-center py-lg relative">
+<div class="w-48 h-48 rounded-full border-4 border-surface-container-high relative flex items-center justify-center">
+<svg class="absolute inset-0 w-full h-full -rotate-90" viewbox="0 0 100 100">
+<circle class="stroke-surface-container-high" cx="50" cy="50" fill="none" r="46" stroke-width="8"></circle>
+<circle class="stroke-primary" cx="50" cy="50" fill="none" r="46" stroke-dasharray="289" stroke-dashoffset="63.5" stroke-linecap="round" stroke-width="8"></circle> <!-- 78% of 289 -->
+</svg>
+<div class="absolute inset-0 rounded-full border border-primary/20 pulse-ring"></div>
+<div class="text-center z-10 flex flex-col items-center">
+<span class="font-display-score text-display-score text-on-surface font-bold tracking-tight">78<span class="text-on-surface-variant text-2xl">/100</span></span>
+</div>
+</div>
+</div>
+<div class="bg-primary-container/10 border border-primary/20 rounded-lg p-sm flex items-start gap-3">
+<span class="material-symbols-outlined text-primary mt-1" data-icon="trending_up">trending_up</span>
+<div>
+<p class="font-label-md text-label-md text-primary font-semibold">Stable</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant mt-1">slight dip in cross-team communication.</p>
+</div>
+</div>
+</div>
+<!-- Network Graph (Center, 5 cols) -->
+<div class="md:col-span-5 glass-card rounded-2xl p-md flex flex-col glow-hover transition-all duration-300 overflow-hidden relative">
+<div class="flex justify-between items-center mb-4 z-10">
+<h2 class="font-headline-md text-headline-md text-on-surface">Collaboration Topology</h2>
+<div class="flex gap-3 font-label-sm text-label-sm text-on-surface-variant">
+<div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-primary"></div> Strong</div>
+<div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-secondary"></div> Mild</div>
+<div class="flex items-center gap-1"><div class="w-2 h-2 rounded-full bg-tertiary"></div> Weak</div>
+</div>
+</div>
+<!-- Simulated Network Graph SVG -->
+<div class="flex-grow relative bg-surface-container-lowest/50 rounded-lg border border-outline-variant/30 min-h-[300px]">
+<svg class="absolute inset-0 w-full h-full" viewbox="0 0 400 300">
+<!-- Lines -->
+<line class="network-line-strong" x1="200" x2="100" y1="150" y2="80"></line>
+<line class="network-line-strong" x1="200" x2="320" y1="150" y2="100"></line>
+<line class="network-line-medium" x1="200" x2="250" y1="150" y2="250"></line>
+<line class="network-line-medium" x1="200" x2="80" y1="150" y2="220"></line>
+<line class="network-line-weak" x1="320" x2="250" y1="100" y2="250"></line>
+<line class="network-line-weak" x1="100" x2="80" y1="80" y2="220"></line>
+<!-- Nodes -->
+<!-- Center Node -->
+<circle cx="200" cy="150" fill="#ffffff" r="18" stroke="#246565" stroke-width="2"></circle>
+<text fill="#1e1b19" font-family="Inter" font-size="12" font-weight="600" text-anchor="middle" x="200" y="155">PM</text>
+<!-- Other Nodes -->
+<circle cx="100" cy="80" fill="#ffffff" r="16" stroke="#246565" stroke-width="2"></circle>
+<text fill="#1e1b19" font-family="Inter" font-size="10" text-anchor="middle" x="100" y="84">Dev1</text>
+<circle cx="320" cy="100" fill="#ffffff" r="16" stroke="#246565" stroke-width="2"></circle>
+<text fill="#1e1b19" font-family="Inter" font-size="10" text-anchor="middle" x="320" y="104">Des</text>
+<circle cx="250" cy="250" fill="#ffffff" r="14" stroke="#695c51" stroke-width="2"></circle>
+<text fill="#1e1b19" font-family="Inter" font-size="10" text-anchor="middle" x="250" y="254">Dev2</text>
+<circle cx="80" cy="220" fill="#ffffff" r="14" stroke="#844e36" stroke-width="2"></circle>
+<text fill="#1e1b19" font-family="Inter" font-size="10" text-anchor="middle" x="80" y="224">QA</text>
+</svg>
+</div>
+</div>
+<!-- AI Insights (Right, 3 cols) -->
+<div class="md:col-span-3 glass-card rounded-2xl p-md flex flex-col glow-hover transition-all duration-300">
+<div class="flex items-center gap-2 mb-md">
+<span class="material-symbols-outlined text-secondary" data-icon="lightbulb">lightbulb</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">AI Insights</h2>
+</div>
+<div class="flex flex-col gap-sm flex-grow">
+<div class="bg-surface-container-low/50 rounded-lg p-sm border border-outline-variant/30 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-xl mt-1" data-icon="auto_awesome">auto_awesome</span>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Consider a sync between QA and Dev1 — collaboration signals have dropped over the past 2 weeks.</p>
+</div>
+<div class="bg-surface-container-low/50 rounded-lg p-sm border border-outline-variant/30 flex items-start gap-3">
+<span class="material-symbols-outlined text-primary text-xl mt-1" data-icon="auto_awesome">auto_awesome</span>
+<p class="font-body-md text-body-md text-on-surface-variant text-sm">Design pod is highly connected this sprint. Good momentum for the upcoming release.</p>
+</div>
+</div>
+</div>
+</div>
+<!-- Privacy Banner -->
+<div class="w-full bg-surface-container-lowest border border-outline-variant/30 rounded-lg p-sm flex items-center justify-center gap-2 text-outline">
+<span class="material-symbols-outlined text-sm" data-icon="shield_lock">shield_lock</span>
+<p class="font-label-sm text-label-sm">Team-level insights only. No individual monitoring or surveillance.</p>
+</div>
+<!-- Bottom Row (3 Metrics) -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-md">
+<!-- Response Time -->
+<div class="glass-card rounded-2xl p-md flex flex-col glow-hover transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant">Response Time Trend</h3>
+<p class="font-headline-md text-headline-md text-on-surface mt-1">1.2 hrs</p>
+</div>
+<span class="material-symbols-outlined text-secondary bg-secondary-container/20 p-2 rounded-lg" data-icon="timer">timer</span>
+</div>
+<!-- Sparkline Placeholder -->
+<div class="h-12 w-full mt-auto relative">
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 30">
+<path d="M0,20 Q10,25 20,15 T40,20 T60,10 T80,15 T100,5" fill="none" stroke="#695c51" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+<!-- Meeting Frequency -->
+<div class="glass-card rounded-2xl p-md flex flex-col glow-hover transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant">Meeting Frequency</h3>
+<p class="font-headline-md text-headline-md text-on-surface mt-1">Optimal</p>
+</div>
+<span class="material-symbols-outlined text-tertiary bg-tertiary-container/20 p-2 rounded-lg" data-icon="groups">groups</span>
+</div>
+<div class="h-12 w-full mt-auto flex items-end gap-1">
+<div class="w-1/6 bg-tertiary/30 h-1/3 rounded-t-sm"></div>
+<div class="w-1/6 bg-tertiary/50 h-2/3 rounded-t-sm"></div>
+<div class="w-1/6 bg-tertiary h-full rounded-t-sm"></div>
+<div class="w-1/6 bg-tertiary/80 h-4/5 rounded-t-sm"></div>
+<div class="w-1/6 bg-tertiary/40 h-1/2 rounded-t-sm"></div>
+<div class="w-1/6 bg-tertiary/60 h-3/4 rounded-t-sm"></div>
+</div>
+</div>
+<!-- Team Mood -->
+<div class="glass-card rounded-2xl p-md flex flex-col glow-hover transition-all duration-300">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="font-label-md text-label-md text-on-surface-variant">Team Sentiment</h3>
+<p class="font-headline-md text-headline-md text-on-surface mt-1">Positive</p>
+</div>
+<span class="material-symbols-outlined text-primary bg-primary-container/20 p-2 rounded-lg" data-icon="mood">mood</span>
+</div>
+<div class="h-12 w-full mt-auto relative">
+<svg class="absolute inset-0 w-full h-full" preserveaspectratio="none" viewbox="0 0 100 30">
+<path d="M0,15 Q20,10 40,20 T80,5 T100,10" fill="none" stroke="#246565" stroke-linecap="round" stroke-width="2"></path>
+</svg>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-base px-gutter flex flex-row justify-between items-center bg-background text-outline font-label-sm docked bottom-0 bg-surface-container-lowest border-t border-outline-variant/30 flat no shadows mt-xl">
+<span>© 2024 Team Pulse AI. Team-level insights only.</span>
+<div class="flex gap-sm">
+<a class="hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<a class="hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+<a class="hover:text-on-surface transition-colors" href="#">Security Whitepaper</a>
+</div>
+</footer>
+</body></html>
