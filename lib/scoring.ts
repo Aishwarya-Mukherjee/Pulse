@@ -67,18 +67,24 @@ export interface TeamHealthResult {
 // Configurable scoring constants
 // ---------------------------------------------------------------------------
 
+export interface ScoreWeights {
+  responseLag: number;
+  meetingCount: number;
+  moodScore: number;
+}
+
 /**
  * Signal weights — must sum to 1.0.
  * Adjust these to reprioritise signals without touching scoring logic.
  */
-export const WEIGHTS = {
+export const DEFAULT_WEIGHTS: ScoreWeights = {
   /** Response lag contributes 40 % of the composite score. */
   responseLag: 0.4,
   /** Meeting frequency contributes 35 %. */
   meetingCount: 0.35,
   /** Mood check-in contributes 25 % (when available). */
   moodScore: 0.25,
-} as const;
+};
 
 /**
  * Normalisation bounds for response lag (hours).
@@ -165,20 +171,23 @@ function normaliseMood(moodScore: number | null): number | null {
 function computeMemberComposite(
   lagNorm: number,
   meetingNorm: number,
-  moodNorm: number | null
+  moodNorm: number | null,
+  weights: ScoreWeights
 ): number {
   if (moodNorm === null) {
     // Redistribute mood weight proportionally across the remaining signals.
-    const totalOtherWeight = WEIGHTS.responseLag + WEIGHTS.meetingCount;
-    const lagWeight     = WEIGHTS.responseLag  / totalOtherWeight;
-    const meetingWeight = WEIGHTS.meetingCount / totalOtherWeight;
+    const totalOtherWeight = weights.responseLag + weights.meetingCount;
+    // Avoid division by zero if all weights are somehow 0
+    if (totalOtherWeight === 0) return 0;
+    const lagWeight     = weights.responseLag  / totalOtherWeight;
+    const meetingWeight = weights.meetingCount / totalOtherWeight;
     return lagNorm * lagWeight + meetingNorm * meetingWeight;
   }
 
   return (
-    lagNorm     * WEIGHTS.responseLag  +
-    meetingNorm * WEIGHTS.meetingCount +
-    moodNorm    * WEIGHTS.moodScore
+    lagNorm     * weights.responseLag  +
+    meetingNorm * weights.meetingCount +
+    moodNorm    * weights.moodScore
   );
 }
 
@@ -210,7 +219,8 @@ function computeMemberComposite(
  */
 export function computeTeamHealthScore(
   allMetrics: WeeklyMetric[],
-  weekIndex: number
+  weekIndex: number,
+  weights: ScoreWeights = DEFAULT_WEIGHTS
 ): TeamHealthResult {
   // 1. Filter to the requested week.
   const weekMetrics = allMetrics.filter((m) => m.weekIndex === weekIndex);
@@ -225,7 +235,7 @@ export function computeTeamHealthScore(
     const meetingScore = normaliseMeetings(m.meetingCount);
     const moodNorm     = normaliseMood(m.moodScore);
 
-    const raw          = computeMemberComposite(lagScore, meetingScore, moodNorm);
+    const raw          = computeMemberComposite(lagScore, meetingScore, moodNorm, weights);
     // Scale to 0–100 and round to one decimal place.
     const compositeScore = Math.round(raw * 1000) / 10;
 
@@ -260,10 +270,11 @@ export function computeTeamHealthScore(
  */
 export function computeAllWeekScores(
   allMetrics: WeeklyMetric[],
-  weekCount = 6
+  weekCount = 6,
+  weights: ScoreWeights = DEFAULT_WEIGHTS
 ): TeamHealthResult[] {
   return Array.from({ length: weekCount }, (_, i) =>
-    computeTeamHealthScore(allMetrics, i)
+    computeTeamHealthScore(allMetrics, i, weights)
   );
 }
 
@@ -277,10 +288,11 @@ export function computeAllWeekScores(
  */
 export function computeWeekDelta(
   allMetrics: WeeklyMetric[],
-  weekIndex: number
+  weekIndex: number,
+  weights: ScoreWeights = DEFAULT_WEIGHTS
 ): number | null {
   if (weekIndex === 0) return null;
-  const current  = computeTeamHealthScore(allMetrics, weekIndex);
-  const previous = computeTeamHealthScore(allMetrics, weekIndex - 1);
+  const current  = computeTeamHealthScore(allMetrics, weekIndex, weights);
+  const previous = computeTeamHealthScore(allMetrics, weekIndex - 1, weights);
   return Math.round((current.teamScore - previous.teamScore) * 10) / 10;
 }
