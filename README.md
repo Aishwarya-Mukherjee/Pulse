@@ -23,6 +23,18 @@ Unlike productivity trackers, we don't measure output. **We measure the health o
 4. **Chat with Pulse AI:** An interactive simulated LLM interface that provides natural-language analysis of the team's data over a 6-week period.
 5. **D3.js Network Graph:** A beautiful force-directed graph visualizing the strength of team interactions across different pods (Core, Design, Platform).
 6. **Auto-Play Narrative Demo:** A single-click presentation mode that auto-advances the timeline to visually demonstrate how the AI detects isolation over a 6-week period.
+7. **Synthetic Data Playground:** A sandbox environment allowing users to live-edit the demo dataset to test edge cases.
+
+---
+
+## 🎮 Using the Synthetic Data Playground
+To test the app's responsiveness to different team scenarios, we've included a live data editor:
+
+1. Click on the **Profile Icon** in the top right and select **"View Demo Data"**.
+2. **Select a Target:** Choose a team member and a specific week.
+3. **Edit Metrics:** Use the sliders to change Response Lag, Meeting Count, or Mood Score.
+4. **Edit Interactions:** Redefine the team's communication network for that week. Add new links between any two members, adjust their interaction strength, or delete links entirely.
+5. **Global Sync:** Your edits are saved to your browser session. Navigate back to the **Dashboard** or **Insights** pages, and the AI Engine and Network Graph will instantly re-render using your custom scenario!
 
 ---
 
