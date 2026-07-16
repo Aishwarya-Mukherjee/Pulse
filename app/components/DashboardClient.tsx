@@ -33,7 +33,15 @@ import {
 // ── Component ─────────────────────────────────────────────────────────────
 
 export default function DashboardClient({ data }: { data: DashboardData }) {
-  const { team, members, weeklyMetrics, interactions, events } = data;
+  const [activeData, setActiveData] = useState<DashboardData>(data);
+
+  useEffect(() => {
+    import("@/lib/syntheticDataUtils").then(({ mergeSyntheticData }) => {
+      setActiveData(mergeSyntheticData(data));
+    });
+  }, [data]);
+
+  const { team, members, weeklyMetrics, interactions, events } = activeData;
   const weekCount = team.weekLabels.length; // 6
 
   const [selectedWeek, setSelectedWeek] = useState(team.currentWeekIndex);

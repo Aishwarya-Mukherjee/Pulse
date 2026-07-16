@@ -36,7 +36,15 @@ import {
 // ── Component ─────────────────────────────────────────────────────────────
 
 export default function InsightsClient({ data }: { data: DashboardData }) {
-  const { team, members, weeklyMetrics, interactions, events } = data;
+  const [activeData, setActiveData] = useState<DashboardData>(data);
+
+  useEffect(() => {
+    import("@/lib/syntheticDataUtils").then(({ mergeSyntheticData }) => {
+      setActiveData(mergeSyntheticData(data));
+    });
+  }, [data]);
+
+  const { team, members, weeklyMetrics, interactions, events } = activeData;
   const weekCount = team.weekLabels.length; // 6
 
   const [selectedWeek, setSelectedWeek] = useState(team.currentWeekIndex);
@@ -48,7 +56,7 @@ export default function InsightsClient({ data }: { data: DashboardData }) {
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
   const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
-  const { weights } = useConfig();
+  const { weights, insightTone } = useConfig();
 
   useEffect(() => {
     setIsInitialRender(false);
@@ -222,7 +230,7 @@ export default function InsightsClient({ data }: { data: DashboardData }) {
       {/* ── Per-Person Detail Modal ── */}
       {selectedMember && (() => {
         const isSynced = syncedMembers.has(selectedMember.memberId);
-        const memberInsight = generateMemberInsight(selectedMember.memberId, selectedWeek, weeklyMetrics, interactions, members);
+        const memberInsight = generateMemberInsight(selectedMember.memberId, selectedWeek, weeklyMetrics, interactions, members, insightTone);
         const insightParts = memberInsight.text.split(memberInsight.highlight);
 
         return (

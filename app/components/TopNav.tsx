@@ -156,9 +156,20 @@ export default function TopNav() {
                 </div>
               </div>
               <div className="p-2">
+                <Link
+                  href="/synthetic-data"
+                  onClick={() => setIsProfileOpen(false)}
+                  className="w-full text-left px-3 py-2 text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors flex items-center gap-2"
+                >
+                  <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <path d="M12 20h9" />
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z" />
+                  </svg>
+                  View Demo Data
+                </Link>
                 <button 
                   onClick={() => setIsProfileOpen(false)}
-                  className="w-full text-left px-3 py-2 text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors flex items-center gap-2">
+                  className="w-full text-left px-3 py-2 text-sm text-on-surface-variant hover:text-primary hover:bg-surface-container-highest rounded-lg transition-colors flex items-center gap-2 mt-1">
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
                     <path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4" />
                     <polyline points="16 17 21 12 16 7" />

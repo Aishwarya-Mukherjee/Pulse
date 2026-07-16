@@ -1,5 +1,6 @@
 import type { WeeklyMetric } from "./scoring";
 import type { Interaction, Member } from "./types";
+import type { InsightTone } from "@/app/contexts/ConfigContext";
 
 export const CIRCUMFERENCE = 2 * Math.PI * 46;
 
@@ -79,7 +80,8 @@ export function generateMemberInsight(
   currentWeek: number,
   metrics: WeeklyMetric[],
   interactions: Interaction[],
-  members: Member[]
+  members: Member[],
+  tone: InsightTone = "Supportive"
 ): { text: string; highlight: string } {
   if (currentWeek === 0) {
     return { text: "Not enough history yet to show a trend for this week.", highlight: "Not enough history" };
@@ -124,30 +126,101 @@ export function generateMemberInsight(
   const isCapacityBelowBaseline = memberLag > teamAvgLag * 1.05;
   const isCrossPodBelowBaseline = memberCrossPod < teamAvgCrossPod * 0.95;
 
-  let capacityStr = "Aggregated signals suggest steady capacity.";
-  if (isCapacityBelowBaseline) {
-    const severity = memberLag > teamAvgLag * 1.3 ? "well above" : memberLag > teamAvgLag * 1.15 ? "noticeably higher than" : "slightly higher than";
-    capacityStr = `Response times are trending ${severity} the team average, indicating potential capacity constraints.`;
-  }
-
-  let crossPodStr = "Cross-functional interactions remain strong.";
-  let crossPodSeverity = "";
-  if (isCrossPodBelowBaseline) {
-    crossPodSeverity = memberCrossPod < teamAvgCrossPod * 0.7 ? "well below" : memberCrossPod < teamAvgCrossPod * 0.85 ? "noticeably below" : "slightly below";
-    crossPodStr = `Interaction with cross-functional pods is ${crossPodSeverity} baseline.`;
-  }
-
-  const text = `${capacityStr} ${crossPodStr}`;
+  let text = "";
   let highlight = "";
 
-  if (!isCapacityBelowBaseline && !isCrossPodBelowBaseline) {
-    highlight = "steady capacity";
-  } else if (isCapacityBelowBaseline && isCrossPodBelowBaseline) {
-    highlight = "potential capacity constraints";
-  } else if (!isCapacityBelowBaseline && isCrossPodBelowBaseline) {
-    highlight = `${crossPodSeverity} baseline`;
-  } else {
-    highlight = "potential capacity constraints";
+  if (tone === "Supportive") {
+    let capacityStr = "Aggregated signals suggest steady capacity.";
+    if (isCapacityBelowBaseline) {
+      const severity = memberLag > teamAvgLag * 1.3 ? "well above" : memberLag > teamAvgLag * 1.15 ? "noticeably higher than" : "slightly higher than";
+      capacityStr = `Response times are trending ${severity} the team average, indicating potential capacity constraints.`;
+    }
+
+    let crossPodStr = "Cross-functional interactions remain strong.";
+    let crossPodSeverity = "";
+    if (isCrossPodBelowBaseline) {
+      crossPodSeverity = memberCrossPod < teamAvgCrossPod * 0.7 ? "well below" : memberCrossPod < teamAvgCrossPod * 0.85 ? "noticeably below" : "slightly below";
+      crossPodStr = `Interaction with cross-functional pods is ${crossPodSeverity} baseline.`;
+    }
+
+    text = `${capacityStr} ${crossPodStr}`;
+
+    if (!isCapacityBelowBaseline && !isCrossPodBelowBaseline) {
+      highlight = "steady capacity";
+    } else if (isCapacityBelowBaseline && isCrossPodBelowBaseline) {
+      highlight = "potential capacity constraints";
+    } else if (!isCapacityBelowBaseline && isCrossPodBelowBaseline) {
+      highlight = `${crossPodSeverity} baseline`;
+    } else {
+      highlight = "potential capacity constraints";
+    }
+  } else if (tone === "Direct") {
+    let capacityStr = "Capacity is steady.";
+    if (isCapacityBelowBaseline) {
+      capacityStr = "Response lag is above average. Consider checking in this week.";
+    }
+
+    let crossPodStr = "Cross-pod engagement is solid.";
+    if (isCrossPodBelowBaseline) {
+      crossPodStr = "Cross-pod engagement is low. Encourage broader collaboration.";
+    }
+
+    text = `${capacityStr} ${crossPodStr}`;
+
+    if (!isCapacityBelowBaseline && !isCrossPodBelowBaseline) {
+      highlight = "Capacity is steady.";
+    } else if (isCapacityBelowBaseline && isCrossPodBelowBaseline) {
+      highlight = "Response lag is above average.";
+    } else if (!isCapacityBelowBaseline && isCrossPodBelowBaseline) {
+      highlight = "Cross-pod engagement is low.";
+    } else {
+      highlight = "Response lag is above average.";
+    }
+  } else if (tone === "Analytical") {
+    const lagDiff = ((memberLag - teamAvgLag) / teamAvgLag * 100).toFixed(0);
+    const lagStr = isCapacityBelowBaseline
+      ? `${memberLag.toFixed(1)} hrs vs ${teamAvgLag.toFixed(1)} hr team avg (+${lagDiff}%).`
+      : `Response times within normal team variance.`;
+
+    let cpStr = "";
+    let cpHighlight = "";
+
+    if (memberCrossPod === 0) {
+      let maxPrior = 0;
+      for (const i of interactions) {
+        if (i.weekIndex < currentWeek && (i.memberA === memberId || i.memberB === memberId)) {
+          if (i.interactionStrength > maxPrior) {
+            maxPrior = i.interactionStrength;
+          }
+        }
+      }
+
+      if (maxPrior > 0) {
+        cpStr = `Cross-pod engagement has declined from ${maxPrior.toFixed(2)} to 0 over the observed period — full disengagement from prior external ties.`;
+        cpHighlight = "full disengagement";
+      } else {
+        cpStr = `Cross-functional interactions 100% below baseline.`;
+        cpHighlight = "100% below baseline";
+      }
+    } else {
+      const cpDiff = ((teamAvgCrossPod - memberCrossPod) / teamAvgCrossPod * 100).toFixed(0);
+      cpStr = isCrossPodBelowBaseline
+        ? `Cross-functional interactions ${cpDiff}% below baseline.`
+        : `Cross-functional interaction baseline maintained.`;
+      cpHighlight = `${cpDiff}% below baseline`;
+    }
+
+    text = `${lagStr} ${cpStr}`;
+
+    if (!isCapacityBelowBaseline && !isCrossPodBelowBaseline) {
+      highlight = "normal team variance";
+    } else if (isCapacityBelowBaseline && isCrossPodBelowBaseline) {
+      highlight = `+${lagDiff}%`;
+    } else if (!isCapacityBelowBaseline && isCrossPodBelowBaseline) {
+      highlight = cpHighlight;
+    } else {
+      highlight = `+${lagDiff}%`;
+    }
   }
 
   return { text, highlight };

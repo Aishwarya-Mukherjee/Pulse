@@ -89,6 +89,8 @@ interface TooltipState {
   label: string;
   sub: string;
   color: string;
+  alignRight?: boolean;
+  alignBottom?: boolean;
 }
 
 // ── Component ────────────────────────────────────────────────────────────────
@@ -229,6 +231,8 @@ export default function CollaborationGraph({
           label: `${src} ↔ ${tgt}`,
           sub: subText,
           color: edgeColor(d.strength),
+          alignRight: (event.clientX - rect.left) + 240 > rect.width,
+          alignBottom: (event.clientY - rect.top) + 120 > rect.height,
         });
       })
       .on("mousemove", function (event: MouseEvent) {
@@ -237,6 +241,8 @@ export default function CollaborationGraph({
           ...t,
           x: event.clientX - rect.left,
           y: event.clientY - rect.top - 12,
+          alignRight: (event.clientX - rect.left) + 240 > rect.width,
+          alignBottom: (event.clientY - rect.top) + 120 > rect.height,
         }));
       })
       .on("mouseleave", () => setTooltip((t) => ({ ...t, visible: false })));
@@ -309,6 +315,8 @@ export default function CollaborationGraph({
           label: d.displayName,
           sub: `${d.role} in ${d.pod} Pod (Click to view health metrics)`,
           color: podColor(d.pod),
+          alignRight: (event.clientX - rect.left) + 240 > rect.width,
+          alignBottom: (event.clientY - rect.top) + 120 > rect.height,
         });
         d3.select<SVGGElement, SimNode>(this)
           .select<SVGCircleElement>("circle:nth-child(2)")
@@ -327,6 +335,8 @@ export default function CollaborationGraph({
           ...t,
           x: event.clientX - rect.left,
           y: event.clientY - rect.top - 12,
+          alignRight: (event.clientX - rect.left) + 240 > rect.width,
+          alignBottom: (event.clientY - rect.top) + 120 > rect.height,
         }));
       })
       .on("mouseleave", function () {
@@ -343,6 +353,13 @@ export default function CollaborationGraph({
 
     // ── Tick ────────────────────────────────────────────────────────────────
     simulation.on("tick", () => {
+      const padding = 24; // Node radius + some extra margin
+      
+      nodeEls.each((d) => {
+        if (d.x !== undefined) d.x = Math.max(padding, Math.min(width - padding, d.x));
+        if (d.y !== undefined) d.y = Math.max(padding, Math.min(height - padding, d.y));
+      });
+
       linkEls
         .attr("x1", (d) => (d.source as SimNode).x ?? 0)
         .attr("y1", (d) => (d.source as SimNode).y ?? 0)
@@ -441,8 +458,9 @@ export default function CollaborationGraph({
         <div
           className="pointer-events-none absolute z-20 px-3 py-2 rounded-lg shadow-lg text-xs"
           style={{
-            left:  tooltip.x + 12,
+            left:  tooltip.alignRight ? tooltip.x - 12 : tooltip.x + 12,
             top:   tooltip.y,
+            transform: `translate(${tooltip.alignRight ? '-100%' : '0'}, ${tooltip.alignBottom ? '-100%' : '0'})`,
             background: "var(--color-surface-container-highest)",
             border: `1px solid color-mix(in srgb, ${tooltip.color} 25%, transparent)`,
             maxWidth: 220,
