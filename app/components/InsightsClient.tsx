@@ -30,6 +30,7 @@ import {
   toSparkPoints,
   toBarHeights,
   eventColor,
+  generateMemberInsight,
 } from "@/lib/metrics";
 
 // ── Component ─────────────────────────────────────────────────────────────
@@ -46,7 +47,12 @@ export default function InsightsClient({ data }: { data: DashboardData }) {
   const [syncedMembers, setSyncedMembers] = useState<Set<string>>(new Set());
   const [toastMessage, setToastMessage] = useState<string | null>(null);
   const [isPlaying, setIsPlaying] = useState<boolean>(false);
+  const [isInitialRender, setIsInitialRender] = useState<boolean>(true);
   const { weights } = useConfig();
+
+  useEffect(() => {
+    setIsInitialRender(false);
+  }, []);
 
   useEffect(() => {
     if (!isPlaying) return;
@@ -216,6 +222,9 @@ export default function InsightsClient({ data }: { data: DashboardData }) {
       {/* ── Per-Person Detail Modal ── */}
       {selectedMember && (() => {
         const isSynced = syncedMembers.has(selectedMember.memberId);
+        const memberInsight = generateMemberInsight(selectedMember.memberId, selectedWeek, weeklyMetrics, interactions, members);
+        const insightParts = memberInsight.text.split(memberInsight.highlight);
+
         return (
           <div 
             className="fixed inset-0 z-[100] flex items-center justify-center p-4 sm:p-6 bg-black/60 backdrop-blur-sm"
@@ -256,8 +265,9 @@ export default function InsightsClient({ data }: { data: DashboardData }) {
                 <span className="text-xs font-semibold text-on-surface uppercase tracking-wide">Privacy-Safe Insight</span>
               </div>
               <p className="text-sm text-on-surface-variant leading-relaxed">
-                Aggregated signal indicates <strong className="text-on-surface">engagement has dipped</strong> slightly in recent weeks. 
-                Interaction with cross-functional pods is lower than baseline. 
+                {insightParts[0]}
+                {memberInsight.highlight && <strong className="text-on-surface">{memberInsight.highlight}</strong>}
+                {insightParts.slice(1).join(memberInsight.highlight)}
               </p>
             </div>
 
@@ -676,7 +686,7 @@ export default function InsightsClient({ data }: { data: DashboardData }) {
                       className={teamScore >= 80 ? "stroke-[var(--color-success)]" : teamScore >= 60 ? "stroke-[var(--color-warning)]" : "stroke-[var(--color-error)]"}
                       strokeWidth="5"
                       strokeDasharray={CIRCUMFERENCE}
-                      strokeDashoffset={strokeOffset}
+                      strokeDashoffset={isInitialRender ? CIRCUMFERENCE : strokeOffset}
                       strokeLinecap="round"
                       style={{ transition: 'stroke-dashoffset 1s cubic-bezier(0.4, 0, 0.2, 1)' }}
                     />
@@ -692,6 +702,9 @@ export default function InsightsClient({ data }: { data: DashboardData }) {
                     <span className="text-on-surface-variant text-lg font-medium mt-1">/ 100</span>
                   </div>
                 </div>
+                <div className="mt-4 text-xs font-semibold text-on-surface-variant uppercase tracking-wider">
+                  Reflects {team.weekLabels[selectedWeek]}
+                </div>
               </div>
             </div>
 
@@ -699,10 +712,10 @@ export default function InsightsClient({ data }: { data: DashboardData }) {
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-[var(--spacing-sm)]">
               <div className="bg-surface-container/50 border border-outline-variant/30 rounded-xl p-4 flex justify-between items-center">
                 <span className="text-sm font-medium text-on-surface-variant">Trend</span>
-                <span className={`text-sm font-bold flex items-center gap-1 ${delta && delta >= 0 ? 'text-[var(--color-success)]' : 'text-[var(--color-warning)]'}`}>
+                <span className={`text-sm font-bold flex items-center gap-1 ${!delta || delta === 0 ? 'text-[var(--color-warning)]' : delta > 0 ? 'text-[var(--color-success)]' : 'text-[var(--color-error)]'}`}>
                   <svg className="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
-                    {delta && delta >= 0 ? <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /> : <polyline points="23 18 13.5 8.5 8.5 13.5 1 6" />}
-                    {delta && delta >= 0 ? <polyline points="17 6 23 6 23 12" /> : <polyline points="17 18 23 18 23 12" />}
+                    {delta && delta > 0 ? <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" /> : delta && delta < 0 ? <polyline points="23 18 13.5 8.5 8.5 13.5 1 6" /> : <line x1="4" y1="12" x2="20" y2="12" />}
+                    {delta && delta > 0 ? <polyline points="17 6 23 6 23 12" /> : delta && delta < 0 ? <polyline points="17 18 23 18 23 12" /> : null}
                   </svg>
                   {delta && delta > 0 ? '+' : ''}{delta?.toFixed(1) || '0.0'} pts
                 </span>
